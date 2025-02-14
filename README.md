@@ -80,8 +80,6 @@ Benefits -
 4. Start Chatting - Write message and hit the send button
 ![Image](https://github.com/user-attachments/assets/d140dc78-5323-441a-b0dd-e6d4d1568bc9)
 
-![Image](https://github.com/user-attachments/assets/22fd23c6-b2f4-437a-815f-f21f16d5f81f)
-
 ![Image](https://github.com/user-attachments/assets/77803e0e-edfe-4761-9d87-163540176227)
 
 5. Click the log out button on top of the *Chat-Room* to remove the client
