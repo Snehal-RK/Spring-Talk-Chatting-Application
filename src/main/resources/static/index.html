@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	
+	<title> SpringTalks | Real time chatting application </title>
+	
+	<!-- Global resources -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>	
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/sockjs-client/1.6.1/sockjs.min.js" integrity="sha512-1QvjE7BtotQjkq8PxLeF6P46gEpBRXuskzIVgjFpekzFVF4yjRgrQvTG1MTOJ3yQgvTteKAcO7DSZI92+u/yZw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/stomp.js/2.3.3/stomp.min.js" integrity="sha512-iKDtgDyTHjAitUDdLljGhenhPwrbBfqTKWO1mkhSFH3A7blITC9MhYon6SjnMhp4o0rADGw9yAC6EW4t5a4K3g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css">
+	
+	<!-- Local resources -->
+	<link rel="stylesheet" href="style.css">
+	<script src="script.js"></script>
+	
+</head>
+<body>
+	
+	<div class="container">
+		<div class="row">
+			<div class="col col-5 align-items-start">
+			
+				<!-- Brand LOGO -->
+				<div id="logo-container" class="row">
+					<div class="p-0">
+						<img id="logo" src="logo.png">	<!-- LOGO -->
+					</div>
+				</div>
+				
+				<div class="shadow"></div>
+				
+				<!-- Application Description -->
+				<div id="app-desc" class="row">
+					<div id="desc-container">
+						<!-- Description -->
+						<p> A real time instant chatting application requires <b>No account !</b> 
+							Just enter your name and jump right into the conversation 
+							with your connections without any hassle. </p>
+						<p>
+							<!-- Pro's -->
+							<b>Pro's - </b> <br>
+							<ul>
+								<li> No Sign-Up </li>
+								<li> Private, emphemeral chats </li>
+								<li> Unlimited group chat </li>
+								<li> No installation required </li>
+							</ul>
+						</p>
+					</div>
+				</div>
+				
+				<div class="shadow"></div>
+				
+				<!-- Headline -->
+				<div id="headline" class="row">
+					<p class="col">	Start Talking Now.. </p>
+				    <div class="col arrow">
+				        <span></span>
+				        <span></span>
+				        <span></span>
+				    </div>
+				</div>
+			</div>
+			
+			<!-- Chatting Field -->
+			<div class="col col-6 offset-5 align-items-start" id="chat-room-layout">
+				<div id="container">
+					
+					<!-- Login form -->
+					<div class="row" id="login-form">
+						<input class="col" type="text" id="username" placeholder="Enter your name.." onkeypress="send();" autofocus>
+						<div class="col">
+							<button id="login" class="get-started"> <span> Get Started </span></button>
+						</div>
+					</div>
+					
+					<!-- Chat Room -->
+					<div class="d-none" id="chatting-panel">
+						<div class="row" id="chat-room">
+							<div id="powerIcon">
+								<svg id="logout" fill="#000000" viewBox="0 0 24 24" id="power" data-name="Flat Line" xmlns="http://www.w3.org/2000/svg" class="icon flat-line"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><circle id="secondary" cx="12" cy="13" r="8" style="fill: #91c6ed; stroke-width: 2;"></circle><line id="primary" x1="12" y1="3" x2="12" y2="12" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></line><path id="primary-2" data-name="primary" d="M17.66,7.34a8,8,0,1,1-11.32,0" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></g><title>Logout</title></svg>
+							</div>
+							
+							<!-- Message container -->
+							<table id="msg-container">
+
+							</table>
+						</div>
+						<div class="row msg-input">
+							<input type="text" id="messageContent" class="col" placeholder="Enter your message.." autofocus>
+							<div id="sendIcon">
+								<svg id="send" fill="#000000" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" class="icon multi-color"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><title style="stroke-width: 2;">Send</title><path id="secondary-fill" d="M20.35,6l-5.1,14.27a1,1,0,0,1-1.95,0l-2.51-6.52a1,1,0,0,0-.6-.6L5,11.21,19.27,6.12A2,2,0,0,1,20.35,6Z" style="fill: #91c6ed; stroke-width: 2;"></path><path id="primary-stroke" d="M20.94,4.39,20.35,6l-5.1,14.27a1,1,0,0,1-1.95,0l-2.51-6.52a1,1,0,0,0-.6-.6L5,11.21,3.67,10.7a1,1,0,0,1,0-1.95L19.61,3.06A1,1,0,0,1,20.94,4.39Zm-10.32,9,3-3" style="fill: none; stroke: #000000; stroke-linecap: round; stroke-linejoin: round; stroke-width: 2;"></path></g></svg>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<div class="my-5">
+		<footer class="text-center text-lg-start" style="background-color: #91c6ed;">
+			<div class="container d-flex justify-content-center py-5">
+				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+					<ul class="list-unstyled mb-4">
+						<li>
+							<a href="#!" class="text-decoration-none text-white">About us</a>
+						</li>
+					</ul>
+				</div>
+	
+				<div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+					<ul class="list-unstyled">
+						<li>
+							<a href="#!" class="text-decoration-none text-white">Contact us</a>
+						</li>
+					</ul>
+				</div>
+	        
+		        <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+					<ul class="list-unstyled">
+						<li>
+							<a href="#!" class="text-decoration-none text-white">Jobs</a>
+						</li>
+					</ul>
+				</div>
+	
+	    	    <div class="col-lg-3 col-md-6 mb-4 mb-lg-0">
+					<ul class="list-unstyled">
+						<li>
+							<a href="#!" class="text-decoration-none text-white">support@springtalk.com</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</footer>
+	</div>
+	<!-- End of Footer -->
+
+</body>
+</html>
