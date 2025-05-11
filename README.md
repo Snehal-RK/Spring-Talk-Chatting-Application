@@ -1,19 +1,5 @@
 # Spring-Talk-Chatting-Application
 
-*Company* : CODTECH IT SOLUTIONS
-
-*Name* : Ms. SNEHAL RAJENDRA KAMBLE
-
-*Intern* ID : CT08IMF
-
-*Domain* : FULL STACK WEB DEVELOPMENT
-
-*Duration* : 4 weeks
-
-*Mentor* : NEELA SANTOSH
-
----------------------------------------------------------------
-
 *Description* -
 
 SpringTalk : Instantaneous Connections, Effortless Communication
